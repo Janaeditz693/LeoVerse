@@ -45,121 +45,117 @@
                 </button>
             </div>
         </header>
-        
-        <div class="container">
-            <div class="stats-grid">
-                <div class="card stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-briefcase"></i>
+
+        <main class="main-content">
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number">47</h3>
+                            <p class="stat-label">Jobs Completed</p>
+                        </div>
                     </div>
-                    <div class="stat-content">
-                        <div class="stat-value">47</div>
-                        <div class="stat-label">Jobs Available</div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number">4.3</h3>
+                            <p class="stat-label">Average Rating</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-rupee-sign"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3 class="stat-number">₹2,400</h3>
+                            <p class="stat-label">This Week</p>
+                        </div>
                     </div>
                 </div>
-                <div class="card stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="stat-content">
-                        <div class="stat-value">4.3</div>
-                        <div class="stat-label">Your Rating</div>
-                    </div>
+            </section>
+
+            <section class="categories-section">
+                <h2 class="section-title">Service Categories</h2>
+                <div class="categories-grid" id="categories-grid">
+                    <!-- Categories will be populated by JavaScript -->
                 </div>
-            </div>
+            </section>
 
-            <div class="services-section">
-                <h3>Service Categories</h3>
-                <div class="services-grid" id="services-grid"></div>
-            </div>
-
-            <div class="recent-section">
-                <h3>Recent Activity</h3>
-                <div class="activity-list" id="activity-list"></div>
-            </div>
-        </div>
+            <section class="recent-jobs-section">
+                <h2 class="section-title">Recent Activity</h2>
+                <div class="job-cards" id="recent-jobs">
+                    <!-- Recent jobs will be populated by JavaScript -->
+                </div>
+            </section>
+        </main>
     </div>
 
     <!-- Search Screen -->
     <div id="search-screen" class="screen">
         <header class="app-header">
-            <div class="header-content">
-                <h2>Find Workers</h2>
-                <button class="btn btn--secondary btn--sm" id="search-filter-btn">
-                    <i class="fas fa-filter"></i>
-                </button>
-            </div>
+            <h1 class="screen-title">Find Workers</h1>
         </header>
-        
-        <div class="container">
-            <div class="search-section">
-                <div class="form-control-wrapper">
-                    <input type="text" id="worker-search" class="form-control" placeholder="Search by skills, location...">
-                    <i class="fas fa-search search-icon"></i>
-                </div>
-                
-                <div class="filter-section">
-                    <div class="filter-row">
-                        <label class="form-label">Skills</label>
-                        <select class="form-control" id="skill-filter">
-                            <option value="">All Skills</option>
-                            <option value="cleaning">House Cleaning</option>
-                            <option value="construction">Construction</option>
-                            <option value="electrician">Electrician</option>
-                            <option value="plumbing">Plumbing</option>
-                            <option value="delivery">Delivery</option>
-                            <option value="gardening">Gardening</option>
-                        </select>
-                    </div>
-                    <div class="filter-row">
-                        <label class="form-label">Rating</label>
-                        <select class="form-control" id="rating-filter">
-                            <option value="">Any Rating</option>
-                            <option value="4">4+ Stars</option>
-                            <option value="4.5">4.5+ Stars</option>
-                        </select>
-                    </div>
-                    <div class="filter-row">
-                        <label class="form-label">Rate Range</label>
-                        <select class="form-control" id="rate-filter">
-                            <option value="">Any Rate</option>
-                            <option value="100-200">₹100-200/hour</option>
-                            <option value="200-300">₹200-300/hour</option>
-                            <option value="300+">₹300+/hour</option>
-                        </select>
-                    </div>
-                </div>
+
+        <div class="search-bar">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search by location or skill..." id="search-input">
             </div>
-            
-            <div class="workers-list" id="workers-list"></div>
+        </div>
+
+        <div class="filters-section">
+            <div class="filter-chips">
+                <button class="filter-chip active" data-category="all">All</button>
+                <button class="filter-chip" data-category="cleaning">Cleaning</button>
+                <button class="filter-chip" data-category="construction">Construction</button>
+                <button class="filter-chip" data-category="electrician">Electrician</button>
+                <button class="filter-chip" data-category="plumbing">Plumbing</button>
+            </div>
+        </div>
+
+        <div class="workers-list" id="workers-list">
+            <!-- Workers will be populated by JavaScript -->
         </div>
     </div>
 
     <!-- Post Job Screen -->
     <div id="post-job-screen" class="screen">
         <header class="app-header">
-            <div class="header-content">
-                <button class="btn btn--secondary btn--sm back-btn">
-                    <i class="fas fa-arrow-left"></i>
-                </button>
-                <h2>Post a Job</h2>
-                <span class="step-indicator" id="step-indicator">Step 1 of 3</span>
-            </div>
+            <h1 class="screen-title">Post a Job</h1>
         </header>
-        
-        <div class="container">
-            <div class="job-form" id="job-form">
+
+        <div class="job-form-container">
+            <div class="form-steps">
+                <div class="step active" data-step="1">
+                    <span class="step-number">1</span>
+                    <span class="step-label">Details</span>
+                </div>
+                <div class="step" data-step="2">
+                    <span class="step-number">2</span>
+                    <span class="step-label">Location</span>
+                </div>
+                <div class="step" data-step="3">
+                    <span class="step-number">3</span>
+                    <span class="step-label">Payment</span>
+                </div>
+            </div>
+
+            <form id="job-form">
                 <!-- Step 1: Job Details -->
-                <div class="form-step active" id="step-1">
-                    <h3>Job Details</h3>
+                <div class="form-step active" data-step="1">
                     <div class="form-group">
-                        <label class="form-label">Job Title</label>
-                        <input type="text" class="form-control" id="job-title" placeholder="e.g., House Cleaning Required">
+                        <label for="job-title">Job Title</label>
+                        <input type="text" id="job-title" placeholder="e.g., House Cleaning" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Service Category</label>
-                        <select class="form-control" id="job-category">
-                            <option value="">Select Category</option>
+                        <label for="job-category">Category</label>
+                        <select id="job-category" required>
+                            <option value="">Select a category</option>
                             <option value="cleaning">House Cleaning</option>
                             <option value="construction">Construction</option>
                             <option value="electrician">Electrician</option>
@@ -169,191 +165,157 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Description</label>
-                        <textarea class="form-control" id="job-description" rows="4" placeholder="Describe the work requirements..."></textarea>
+                        <label for="job-description">Description</label>
+                        <textarea id="job-description" placeholder="Describe the work that needs to be done..." rows="4" required></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Duration</label>
-                        <select class="form-control" id="job-duration">
-                            <option value="">Select Duration</option>
-                            <option value="2-4 hours">2-4 hours</option>
-                            <option value="4-6 hours">4-6 hours</option>
-                            <option value="6-8 hours">6-8 hours</option>
-                            <option value="Full day">Full day</option>
-                            <option value="Multiple days">Multiple days</option>
+                        <label for="job-duration">Duration</label>
+                        <select id="job-duration" required>
+                            <option value="">Select duration</option>
+                            <option value="1-2">1-2 hours</option>
+                            <option value="3-4">3-4 hours</option>
+                            <option value="5-8">5-8 hours</option>
+                            <option value="full-day">Full day</option>
+                            <option value="multiple">Multiple days</option>
                         </select>
                     </div>
-                    <button class="btn btn--primary btn--full-width" id="next-step-1">
-                        Next <i class="fas fa-arrow-right"></i>
-                    </button>
                 </div>
 
                 <!-- Step 2: Location & Schedule -->
-                <div class="form-step" id="step-2">
-                    <h3>Location & Schedule</h3>
+                <div class="form-step" data-step="2">
                     <div class="form-group">
-                        <label class="form-label">Address</label>
-                        <input type="text" class="form-control" id="job-address" placeholder="Enter work location">
+                        <label for="job-location">Location</label>
+                        <input type="text" id="job-location" placeholder="Enter address or area" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="job-date">Date</label>
+                            <input type="date" id="job-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="job-time">Time</label>
+                            <input type="time" id="job-time" required>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Date</label>
-                        <input type="date" class="form-control" id="job-date">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Time</label>
-                        <input type="time" class="form-control" id="job-time">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Urgency</label>
-                        <select class="form-control" id="job-urgency">
-                            <option value="low">Low - Can wait</option>
-                            <option value="medium" selected>Medium - Within 3 days</option>
-                            <option value="high">High - ASAP</option>
+                        <label for="urgency">Urgency</label>
+                        <select id="urgency">
+                            <option value="low">Low - Flexible timing</option>
+                            <option value="medium">Medium - Preferred timing</option>
+                            <option value="high">High - Urgent</option>
                         </select>
-                    </div>
-                    <div class="form-buttons">
-                        <button class="btn btn--outline" id="prev-step-2">
-                            <i class="fas fa-arrow-left"></i> Back
-                        </button>
-                        <button class="btn btn--primary" id="next-step-2">
-                            Next <i class="fas fa-arrow-right"></i>
-                        </button>
                     </div>
                 </div>
 
                 <!-- Step 3: Payment & Publish -->
-                <div class="form-step" id="step-3">
-                    <h3>Payment & Publish</h3>
+                <div class="form-step" data-step="3">
                     <div class="form-group">
-                        <label class="form-label">Budget/Rate</label>
-                        <input type="text" class="form-control" id="job-rate" placeholder="e.g., ₹200/hour or ₹1500 total">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Payment Method</label>
-                        <select class="form-control" id="payment-method">
-                            <option value="cash">Cash on completion</option>
-                            <option value="upi">UPI Transfer</option>
-                            <option value="bank">Bank Transfer</option>
+                        <label for="payment-type">Payment Type</label>
+                        <select id="payment-type" required>
+                            <option value="">Select payment type</option>
+                            <option value="hourly">Hourly Rate</option>
+                            <option value="fixed">Fixed Amount</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Additional Requirements</label>
-                        <textarea class="form-control" id="job-requirements" rows="3" placeholder="Any special tools, skills, or instructions..."></textarea>
+                        <label for="budget">Budget (₹)</label>
+                        <input type="number" id="budget" placeholder="Enter amount" required>
                     </div>
-                    <div class="form-buttons">
-                        <button class="btn btn--outline" id="prev-step-3">
-                            <i class="fas fa-arrow-left"></i> Back
-                        </button>
-                        <button class="btn btn--primary" id="publish-job-btn">
-                            <i class="fas fa-rocket"></i> Publish Job
-                        </button>
+                    <div class="form-group">
+                        <label for="requirements">Additional Requirements</label>
+                        <textarea id="requirements" placeholder="Any specific skills or tools required..." rows="3"></textarea>
                     </div>
                 </div>
-            </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn btn--secondary" id="prev-btn" style="display: none;">Previous</button>
+                    <button type="button" class="btn btn--primary" id="next-btn">Next</button>
+                    <button type="submit" class="btn btn--primary" id="publish-btn" style="display: none;">Publish Job</button>
+                </div>
+            </form>
         </div>
     </div>
 
     <!-- Profile Screen -->
     <div id="profile-screen" class="screen">
         <header class="app-header">
-            <div class="header-content">
-                <h2>My Profile</h2>
-                <button class="btn btn--primary btn--sm" id="save-profile-btn">
-                    Save
-                </button>
-            </div>
+            <h1 class="screen-title">My Profile</h1>
+            <button class="btn btn--secondary btn--sm" id="edit-profile-btn">
+                <i class="fas fa-edit"></i>
+            </button>
         </header>
-        
-        <div class="container">
+
+        <div class="profile-content">
             <div class="profile-header">
-                <div class="profile-photo-section">
-                    <div class="profile-photo">
-                        <img src="https://images.pexels.com/photos/4254168/pexels-photo-4254168.jpeg?auto=compress&cs=tinysrgb&w=300" 
-                             alt="Profile" class="profile-image">
-                        <button class="photo-upload-btn">
-                            <i class="fas fa-camera"></i>
-                        </button>
-                    </div>
+                <div class="profile-photo">
+                    <img src="https://images.pexels.com/photos/4254168/pexels-photo-4254168.jpeg?auto=compress&cs=tinysrgb&w=300" 
+                         alt="Profile photo" id="profile-image">
+                    <button class="photo-edit-btn">
+                        <i class="fas fa-camera"></i>
+                    </button>
                 </div>
-                
                 <div class="profile-info">
-                    <div class="form-group">
-                        <label class="form-label">Full Name</label>
-                        <input type="text" class="form-control" id="profile-name" value="Rajesh Kumar">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Phone Number</label>
-                        <input type="tel" class="form-control" id="profile-phone" value="+91 98765 43210">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Location</label>
-                        <input type="text" class="form-control" id="profile-location" value="Mumbai, Maharashtra">
+                    <h2 class="profile-name" id="profile-name">Rajesh Kumar</h2>
+                    <p class="profile-location" id="profile-location">Mumbai, Maharashtra</p>
+                    <div class="profile-rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <span class="rating-text">4.3 (47 reviews)</span>
                     </div>
                 </div>
             </div>
 
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <span class="stat-value">47</span>
+                    <span class="stat-label">Jobs Completed</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">₹150/hr</span>
+                    <span class="stat-label">Hourly Rate</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">2 years</span>
+                    <span class="stat-label">Experience</span>
+                </div>
+            </div>
+
             <div class="profile-section">
-                <h3>Skills & Rate</h3>
-                <div class="skills-section">
-                    <div class="form-group">
-                        <label class="form-label">Skills</label>
-                        <div class="skills-grid" id="skills-grid"></div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Hourly Rate</label>
-                        <input type="text" class="form-control" id="hourly-rate" value="₹150/hour">
-                    </div>
+                <h3>Skills</h3>
+                <div class="skills-list" id="skills-list">
+                    <span class="skill-tag">House Cleaning</span>
+                    <span class="skill-tag">Gardening</span>
+                    <span class="skill-tag">Delivery</span>
                 </div>
             </div>
 
             <div class="profile-section">
                 <h3>Availability</h3>
-                <div class="availability-section">
-                    <div class="availability-toggle">
-                        <span>Available for work today</span>
-                        <label class="switch">
-                            <input type="checkbox" id="availability-toggle" checked>
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                    <div class="calendar-section">
-                        <label class="form-label">Preferred Working Hours</label>
-                        <select class="form-control" id="working-hours">
-                            <option value="flexible">Flexible</option>
-                            <option value="morning">Morning (6AM - 12PM)</option>
-                            <option value="afternoon">Afternoon (12PM - 6PM)</option>
-                            <option value="evening">Evening (6PM - 10PM)</option>
-                        </select>
-                    </div>
+                <div class="availability-toggle">
+                    <label class="switch">
+                        <input type="checkbox" id="availability-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <span class="availability-text">Available for work</span>
                 </div>
             </div>
 
             <div class="profile-section">
-                <h3>Performance Stats</h3>
-                <div class="stats-grid">
-                    <div class="card stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div>
-                            <div class="stat-value">4.3</div>
-                            <div class="stat-label">Rating</div>
-                        </div>
+                <h3>Contact Information</h3>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+91 98765 43210</span>
                     </div>
-                    <div class="card stat-item">
-                        <div class="stat-icon">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <div>
-                            <div class="stat-value">47</div>
-                            <div class="stat-label">Completed</div>
-                        </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>rajesh.kumar@email.com</span>
                     </div>
-                </div>
-
-                <div class="reviews-section">
-                    <h4>Recent Reviews</h4>
-                    <div class="reviews-list" id="reviews-list"></div>
                 </div>
             </div>
         </div>
@@ -362,79 +324,81 @@
     <!-- More Screen -->
     <div id="more-screen" class="screen">
         <header class="app-header">
-            <div class="header-content">
-                <h2>More</h2>
-                <button class="btn btn--secondary btn--sm" id="settings-btn">
-                    <i class="fas fa-cog"></i>
-                </button>
-            </div>
+            <h1 class="screen-title">More Options</h1>
         </header>
-        
-        <div class="container">
-            <div class="more-sections">
-                <div class="more-section">
-                    <h3>Account</h3>
-                    <div class="more-list">
-                        <button class="more-item" id="payment-history-btn">
-                            <i class="fas fa-credit-card"></i>
-                            <span>Payment History</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <button class="more-item" id="earnings-btn">
-                            <i class="fas fa-chart-line"></i>
-                            <span>Earnings Summary</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <button class="more-item" id="job-history-btn">
-                            <i class="fas fa-history"></i>
-                            <span>Job History</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+
+        <div class="more-content">
+            <div class="menu-section">
+                <h3>Account</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Account Settings</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="menu-item">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Payment Methods</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="menu-item">
+                        <i class="fas fa-history"></i>
+                        <span>Job History</span>
+                        <i class="fas fa-chevron-right"></i>
                     </div>
                 </div>
+            </div>
 
-                <div class="more-section">
-                    <h3>Preferences</h3>
-                    <div class="more-list">
-                        <div class="more-item toggle-item">
-                            <i class="fas fa-bell"></i>
-                            <span>Notifications</span>
-                            <label class="switch">
-                                <input type="checkbox" id="notifications-toggle" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </div>
-                        <button class="more-item" id="language-btn">
-                            <i class="fas fa-globe"></i>
-                            <span>Language</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+            <div class="menu-section">
+                <h3>Preferences</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <i class="fas fa-bell"></i>
+                        <span>Notifications</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="menu-item">
+                        <i class="fas fa-globe"></i>
+                        <span>Language</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="menu-item">
+                        <i class="fas fa-moon"></i>
+                        <span>Dark Mode</span>
+                        <label class="switch">
+                            <input type="checkbox" id="dark-mode-toggle">
+                            <span class="slider"></span>
+                        </label>
                     </div>
                 </div>
+            </div>
 
-                <div class="more-section">
-                    <h3>Support</h3>
-                    <div class="more-list">
-                        <button class="more-item" id="help-btn">
-                            <i class="fas fa-question-circle"></i>
-                            <span>Help & Support</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <button class="more-item" id="feedback-btn">
-                            <i class="fas fa-star"></i>
-                            <span>Rate App</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <button class="more-item" id="privacy-btn">
-                            <i class="fas fa-shield-alt"></i>
-                            <span>Terms & Privacy</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <button class="more-item" id="logout-btn">
-                            <i class="fas fa-sign-out-alt"></i>
-                            <span>Logout</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
+            <div class="menu-section">
+                <h3>Support</h3>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Help & Support</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="menu-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Privacy Policy</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                    <div class="menu-item">
+                        <i class="fas fa-file-contract"></i>
+                        <span>Terms of Service</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <div class="menu-items">
+                    <div class="menu-item logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
                     </div>
                 </div>
             </div>
@@ -460,30 +424,10 @@
             <span>Profile</span>
         </button>
         <button class="nav-item" data-screen="more-screen">
-            <i class="fas fa-ellipsis-h"></i>
+            <i class="fas fa-bars"></i>
             <span>More</span>
         </button>
     </nav>
-
-    <!-- Success Modal -->
-    <div id="success-modal" class="modal hidden">
-        <div class="modal-content card">
-            <div class="success-icon">
-                <i class="fas fa-check-circle"></i>
-            </div>
-            <h3 id="success-title">Success!</h3>
-            <p id="success-message">Operation completed successfully</p>
-            <button class="btn btn--primary" id="success-close">OK</button>
-        </div>
-    </div>
-
-    <!-- Loading Overlay -->
-    <div id="loading-overlay" class="loading-overlay hidden">
-        <div class="card loading-card">
-            <div class="loading-spinner"></div>
-            <p>Loading...</p>
-        </div>
-    </div>
 
     <script src="app.js"></script>
 </body>
