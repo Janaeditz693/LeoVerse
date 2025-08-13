@@ -1,20 +1,490 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>COOLIE</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Wages - Connecting Workers & Employers</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="description" content="Find daily wage work opportunities and hire skilled workers instantly">
 </head>
 <body>
-  <div class="container">
-    <h1>COOLIE 🎨🤖</h1>
-    <input type="text" id="promptInput" placeholder="Enter your image prompt..." />
-    <button onclick="generateImage()">Generate Image</button>
-    
-    <div id="status"></div>
-    <div id="imageResult"></div>
-  </div>
+    <!-- Landing Page -->
+    <div id="landing-screen" class="screen active">
+        <div class="landing-hero">
+            <div class="hero-overlay"></div>
+            <img src="https://images.pexels.com/photos/3184287/pexels-photo-3184287.jpeg?auto=compress&cs=tinysrgb&w=1200" 
+                 alt="Workers collaborating" class="hero-background">
+            <div class="landing-content">
+                <div class="app-logo">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h1 class="hero-title">Daily Wages</h1>
+                <p class="hero-tagline">Connecting Daily Wage Workers with Employers Instantly</p>
+                <div class="cta-buttons">
+                    <button class="btn btn--primary btn--lg" id="find-work-btn">
+                        <i class="fas fa-search"></i>
+                        Find Work
+                    </button>
+                    <button class="btn btn--secondary btn--lg" id="hire-workers-btn">
+                        <i class="fas fa-user-plus"></i>
+                        Hire Workers
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <script src="main.js"></script>
+    <!-- Home Screen -->
+    <div id="home-screen" class="screen">
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="greeting">Welcome back!</h1>
+                <button class="btn btn--secondary btn--sm" id="notifications-btn">
+                    <i class="fas fa-bell"></i>
+                </button>
+            </div>
+        </header>
+        
+        <div class="container">
+            <div class="stats-grid">
+                <div class="card stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value">47</div>
+                        <div class="stat-label">Jobs Available</div>
+                    </div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-value">4.3</div>
+                        <div class="stat-label">Your Rating</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="services-section">
+                <h3>Service Categories</h3>
+                <div class="services-grid" id="services-grid"></div>
+            </div>
+
+            <div class="recent-section">
+                <h3>Recent Activity</h3>
+                <div class="activity-list" id="activity-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Search Screen -->
+    <div id="search-screen" class="screen">
+        <header class="app-header">
+            <div class="header-content">
+                <h2>Find Workers</h2>
+                <button class="btn btn--secondary btn--sm" id="search-filter-btn">
+                    <i class="fas fa-filter"></i>
+                </button>
+            </div>
+        </header>
+        
+        <div class="container">
+            <div class="search-section">
+                <div class="form-control-wrapper">
+                    <input type="text" id="worker-search" class="form-control" placeholder="Search by skills, location...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                
+                <div class="filter-section">
+                    <div class="filter-row">
+                        <label class="form-label">Skills</label>
+                        <select class="form-control" id="skill-filter">
+                            <option value="">All Skills</option>
+                            <option value="cleaning">House Cleaning</option>
+                            <option value="construction">Construction</option>
+                            <option value="electrician">Electrician</option>
+                            <option value="plumbing">Plumbing</option>
+                            <option value="delivery">Delivery</option>
+                            <option value="gardening">Gardening</option>
+                        </select>
+                    </div>
+                    <div class="filter-row">
+                        <label class="form-label">Rating</label>
+                        <select class="form-control" id="rating-filter">
+                            <option value="">Any Rating</option>
+                            <option value="4">4+ Stars</option>
+                            <option value="4.5">4.5+ Stars</option>
+                        </select>
+                    </div>
+                    <div class="filter-row">
+                        <label class="form-label">Rate Range</label>
+                        <select class="form-control" id="rate-filter">
+                            <option value="">Any Rate</option>
+                            <option value="100-200">₹100-200/hour</option>
+                            <option value="200-300">₹200-300/hour</option>
+                            <option value="300+">₹300+/hour</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="workers-list" id="workers-list"></div>
+        </div>
+    </div>
+
+    <!-- Post Job Screen -->
+    <div id="post-job-screen" class="screen">
+        <header class="app-header">
+            <div class="header-content">
+                <button class="btn btn--secondary btn--sm back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2>Post a Job</h2>
+                <span class="step-indicator" id="step-indicator">Step 1 of 3</span>
+            </div>
+        </header>
+        
+        <div class="container">
+            <div class="job-form" id="job-form">
+                <!-- Step 1: Job Details -->
+                <div class="form-step active" id="step-1">
+                    <h3>Job Details</h3>
+                    <div class="form-group">
+                        <label class="form-label">Job Title</label>
+                        <input type="text" class="form-control" id="job-title" placeholder="e.g., House Cleaning Required">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Service Category</label>
+                        <select class="form-control" id="job-category">
+                            <option value="">Select Category</option>
+                            <option value="cleaning">House Cleaning</option>
+                            <option value="construction">Construction</option>
+                            <option value="electrician">Electrician</option>
+                            <option value="plumbing">Plumbing</option>
+                            <option value="delivery">Delivery</option>
+                            <option value="gardening">Gardening</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" id="job-description" rows="4" placeholder="Describe the work requirements..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Duration</label>
+                        <select class="form-control" id="job-duration">
+                            <option value="">Select Duration</option>
+                            <option value="2-4 hours">2-4 hours</option>
+                            <option value="4-6 hours">4-6 hours</option>
+                            <option value="6-8 hours">6-8 hours</option>
+                            <option value="Full day">Full day</option>
+                            <option value="Multiple days">Multiple days</option>
+                        </select>
+                    </div>
+                    <button class="btn btn--primary btn--full-width" id="next-step-1">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- Step 2: Location & Schedule -->
+                <div class="form-step" id="step-2">
+                    <h3>Location & Schedule</h3>
+                    <div class="form-group">
+                        <label class="form-label">Address</label>
+                        <input type="text" class="form-control" id="job-address" placeholder="Enter work location">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Date</label>
+                        <input type="date" class="form-control" id="job-date">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Time</label>
+                        <input type="time" class="form-control" id="job-time">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Urgency</label>
+                        <select class="form-control" id="job-urgency">
+                            <option value="low">Low - Can wait</option>
+                            <option value="medium" selected>Medium - Within 3 days</option>
+                            <option value="high">High - ASAP</option>
+                        </select>
+                    </div>
+                    <div class="form-buttons">
+                        <button class="btn btn--outline" id="prev-step-2">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="btn btn--primary" id="next-step-2">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Payment & Publish -->
+                <div class="form-step" id="step-3">
+                    <h3>Payment & Publish</h3>
+                    <div class="form-group">
+                        <label class="form-label">Budget/Rate</label>
+                        <input type="text" class="form-control" id="job-rate" placeholder="e.g., ₹200/hour or ₹1500 total">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Payment Method</label>
+                        <select class="form-control" id="payment-method">
+                            <option value="cash">Cash on completion</option>
+                            <option value="upi">UPI Transfer</option>
+                            <option value="bank">Bank Transfer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Additional Requirements</label>
+                        <textarea class="form-control" id="job-requirements" rows="3" placeholder="Any special tools, skills, or instructions..."></textarea>
+                    </div>
+                    <div class="form-buttons">
+                        <button class="btn btn--outline" id="prev-step-3">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="btn btn--primary" id="publish-job-btn">
+                            <i class="fas fa-rocket"></i> Publish Job
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Screen -->
+    <div id="profile-screen" class="screen">
+        <header class="app-header">
+            <div class="header-content">
+                <h2>My Profile</h2>
+                <button class="btn btn--primary btn--sm" id="save-profile-btn">
+                    Save
+                </button>
+            </div>
+        </header>
+        
+        <div class="container">
+            <div class="profile-header">
+                <div class="profile-photo-section">
+                    <div class="profile-photo">
+                        <img src="https://images.pexels.com/photos/4254168/pexels-photo-4254168.jpeg?auto=compress&cs=tinysrgb&w=300" 
+                             alt="Profile" class="profile-image">
+                        <button class="photo-upload-btn">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="profile-info">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="profile-name" value="Rajesh Kumar">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="profile-phone" value="+91 98765 43210">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Location</label>
+                        <input type="text" class="form-control" id="profile-location" value="Mumbai, Maharashtra">
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h3>Skills & Rate</h3>
+                <div class="skills-section">
+                    <div class="form-group">
+                        <label class="form-label">Skills</label>
+                        <div class="skills-grid" id="skills-grid"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Hourly Rate</label>
+                        <input type="text" class="form-control" id="hourly-rate" value="₹150/hour">
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h3>Availability</h3>
+                <div class="availability-section">
+                    <div class="availability-toggle">
+                        <span>Available for work today</span>
+                        <label class="switch">
+                            <input type="checkbox" id="availability-toggle" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="calendar-section">
+                        <label class="form-label">Preferred Working Hours</label>
+                        <select class="form-control" id="working-hours">
+                            <option value="flexible">Flexible</option>
+                            <option value="morning">Morning (6AM - 12PM)</option>
+                            <option value="afternoon">Afternoon (12PM - 6PM)</option>
+                            <option value="evening">Evening (6PM - 10PM)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-section">
+                <h3>Performance Stats</h3>
+                <div class="stats-grid">
+                    <div class="card stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div>
+                            <div class="stat-value">4.3</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                    </div>
+                    <div class="card stat-item">
+                        <div class="stat-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div>
+                            <div class="stat-value">47</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reviews-section">
+                    <h4>Recent Reviews</h4>
+                    <div class="reviews-list" id="reviews-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- More Screen -->
+    <div id="more-screen" class="screen">
+        <header class="app-header">
+            <div class="header-content">
+                <h2>More</h2>
+                <button class="btn btn--secondary btn--sm" id="settings-btn">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </header>
+        
+        <div class="container">
+            <div class="more-sections">
+                <div class="more-section">
+                    <h3>Account</h3>
+                    <div class="more-list">
+                        <button class="more-item" id="payment-history-btn">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Payment History</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="more-item" id="earnings-btn">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Earnings Summary</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="more-item" id="job-history-btn">
+                            <i class="fas fa-history"></i>
+                            <span>Job History</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="more-section">
+                    <h3>Preferences</h3>
+                    <div class="more-list">
+                        <div class="more-item toggle-item">
+                            <i class="fas fa-bell"></i>
+                            <span>Notifications</span>
+                            <label class="switch">
+                                <input type="checkbox" id="notifications-toggle" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <button class="more-item" id="language-btn">
+                            <i class="fas fa-globe"></i>
+                            <span>Language</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="more-section">
+                    <h3>Support</h3>
+                    <div class="more-list">
+                        <button class="more-item" id="help-btn">
+                            <i class="fas fa-question-circle"></i>
+                            <span>Help & Support</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="more-item" id="feedback-btn">
+                            <i class="fas fa-star"></i>
+                            <span>Rate App</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="more-item" id="privacy-btn">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Terms & Privacy</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                        <button class="more-item" id="logout-btn">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Logout</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav" id="bottom-nav">
+        <button class="nav-item active" data-screen="home-screen">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </button>
+        <button class="nav-item" data-screen="search-screen">
+            <i class="fas fa-search"></i>
+            <span>Search</span>
+        </button>
+        <button class="nav-item" data-screen="post-job-screen">
+            <i class="fas fa-plus-circle"></i>
+            <span>Post Job</span>
+        </button>
+        <button class="nav-item" data-screen="profile-screen">
+            <i class="fas fa-user"></i>
+            <span>Profile</span>
+        </button>
+        <button class="nav-item" data-screen="more-screen">
+            <i class="fas fa-ellipsis-h"></i>
+            <span>More</span>
+        </button>
+    </nav>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal hidden">
+        <div class="modal-content card">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 id="success-title">Success!</h3>
+            <p id="success-message">Operation completed successfully</p>
+            <button class="btn btn--primary" id="success-close">OK</button>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="card loading-card">
+            <div class="loading-spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
